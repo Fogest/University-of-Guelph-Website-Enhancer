@@ -1,0 +1,15 @@
+.exportPopup {
+	background: rgb(150, 150, 150);
+	border: 2px solid black;
+	position: fixed;
+	height: 30%;
+	top: 35%;
+	left: 35%;
+	width: 30%;
+	color: rgb(27, 44, 238);
+	font-weight: bold;
+	font-size: 30px;
+	border-radius: 10px;
+	box-shadow: 2px 2px 2px #6B3C3C;
+	display: none;
+}
