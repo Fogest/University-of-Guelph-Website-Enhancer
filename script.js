@@ -36,6 +36,30 @@ The array looks like the following in each position:
 
 */
 
+function createIndividualIcalEvent(data) {
+	var eventIcal = 'BEGIN:VEVENT\n';
+	eventIcal += 'DTSTART:' + toICSFormat(getCourseStart(data),getCourseTime(data,'start')) + '\n';
+	eventIcal += 'DTEND:' + toICSFormat(getCourseStart(data),getCourseTime(data,'end')) + '\n';
+	eventIcal += 
+	eventIcal += 'END:VEVENT\n'; 
+}i
+
+function toICSFormat(date, time) {
+    var timeCont = [],
+        dateCont = [];
+
+    if (time.toLowerCase().indexOf('pm') != -1) {
+
+        timeCont = time.toLowerCase().replace('pm', 00).split(':'); //assuming from your question seconds is never mentioned but only hh:mm i.e. hours and minutes
+        timeCont[0] = (parseInt(timeCont[0]) + 12) % 24;
+    } else {
+        timeCont = time.toLowerCase().replace('am', 00).split(':');
+    }
+    dateCont = date.split('/');
+
+    return dateCont.join('') + 'T' + timeCont.join('');
+}
+
 function exportToIcal() {
 	var data = getFormattedDataArray();
 	console.log(getCourseCode(data[0]));
@@ -75,8 +99,14 @@ function getCourseDates(data) {
 	return trim(data[5]);
 }
 
-function getCourseTime(data) {
-	return trim(data[6]);
+function getCourseTime(data,startOrEnd) {
+	var re = /^((?:0[1-9]|1[012]):[0-5][0-9][AP]M) - ((?:0[1-9]|1[012]):[0-5][0-9][AP]M)$/; 
+	var match = re.exec(data[6]);
+	if(startOrEnd == 'start') {
+		return trim(match[0]);
+	} else if(startOrEnd == 'end') {
+		return trim(match[1]);
+	}
 }
 
 function getCourseLocation(data) {
