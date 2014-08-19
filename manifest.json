@@ -16,7 +16,7 @@
     {
 		"run_at": "document_end",
         "matches": ["https://webadvisor.uoguelph.ca/*"],
-        "js": ["main.js","lib.js"],
+        "js": ["main.js","lib.js","ics.deps.min.js","ics.min.js"],
 		"css": ["style.css"],
         "all_frames": true
     }
