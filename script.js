@@ -20,6 +20,27 @@ function error() {
 	alert("The data has not yet been retrieved. Please hit the button again in a few seconds!");
 }
 
+function createAllEvents(data) {
+	var results = '';
+	for(i=0;i < data.length;++i) {
+		if(getCourseType(data[i]) != 'EXAM')
+			results += createIndividualIcalEvent(data[i]);
+        }
+	return results;
+}
+
+function createIndividualIcalEvent(data) {
+        var eventIcal = 'BEGIN:VEVENT\n';
+        eventIcal += 'DTSTART:' + toICSFormat(getCourseStart(data),getCourseTime(data,'start')) + '\n';
+        eventIcal += 'DTEND:' + toICSFormat(getCourseStart(data),getCourseTime(data,'end')) + '\n';
+        eventIcal += 'RRULE:FREQ=WEEKLY;UNILT=20141129T000000;WKST=SU;BYDAY=MO,TU\n';
+        eventIcal += 'SUMMARY:' + getCourseCode(data) + '('+ getCourseType(data) + ')' + '\n';
+        eventIcal += 'LOCATION:' + getCourseLocation(data) + ', University of Guelph\n';
+        eventIcal += 'DESCRIPTION:' + getCourseCode(data) + ' this is a much longer description....\n';
+        eventIcal += 'END:VEVENT\n';
+        return eventIcal;
+}
+
 
 /*
 The data retrieved is odd so I am turning it into a slightly easier to work with model.
@@ -35,17 +56,6 @@ The array looks like the following in each position:
 7: The abbreviated building location and room.
 
 */
-
-function createIndividualIcalEvent(data) {
-	var eventIcal = 'BEGIN:VEVENT\n';
-	eventIcal += 'DTSTART:' + toICSFormat(getCourseStart(data),getCourseTime(data,'start')) + '\n';
-	eventIcal += 'DTEND:' + toICSFormat(getCourseStart(data),getCourseTime(data,'end')) + '\n';
-	eventIcal += 'RRULE:FREQ=WEEKLY;UNILT=20141129T000000;WKST=SU;BYDAY=MO,TU\n';
-	eventIcal += 'SUMMARY:' + getCourseCode(data) + '\n';
-	eventIcal += 'LOCATION:' + getCourseLocation(data) + '\n';
-	eventIcal += 'DESCRIPTION:' + getCourseCode(data) + ' this is a much longer description....\n';
-	eventIcal += 'END:VEVENT\n'; 
-}i
 
 function toICSFormat(date, time) {
     var timeCont = [],
@@ -106,9 +116,9 @@ function getCourseTime(data,startOrEnd) {
 	var re = /^((?:0[1-9]|1[012]):[0-5][0-9][AP]M) - ((?:0[1-9]|1[012]):[0-5][0-9][AP]M)$/; 
 	var match = re.exec(data[6]);
 	if(startOrEnd == 'start') {
-		return trim(match[0]);
-	} else if(startOrEnd == 'end') {
 		return trim(match[1]);
+	} else if(startOrEnd == 'end') {
+		return trim(match[2]);
 	}
 }
 
