@@ -40,7 +40,10 @@ function createIndividualIcalEvent(data) {
 	var eventIcal = 'BEGIN:VEVENT\n';
 	eventIcal += 'DTSTART:' + toICSFormat(getCourseStart(data),getCourseTime(data,'start')) + '\n';
 	eventIcal += 'DTEND:' + toICSFormat(getCourseStart(data),getCourseTime(data,'end')) + '\n';
-	eventIcal += 
+	eventIcal += 'RRULE:FREQ=WEEKLY;UNILT=20141129T000000;WKST=SU;BYDAY=MO,TU\n';
+	eventIcal += 'SUMMARY:' + getCourseCode(data) + '\n';
+	eventIcal += 'LOCATION:' + getCourseLocation(data) + '\n';
+	eventIcal += 'DESCRIPTION:' + getCourseCode(data) + ' this is a much longer description....\n';
 	eventIcal += 'END:VEVENT\n'; 
 }i
 
