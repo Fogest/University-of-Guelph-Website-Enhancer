@@ -1,15 +1,36 @@
-.exportPopup {
+#exportPopup {
 	background: rgb(150, 150, 150);
 	border: 2px solid black;
 	position: fixed;
-	height: 30%;
 	top: 35%;
 	left: 35%;
 	width: 30%;
-	color: rgb(27, 44, 238);
-	font-weight: bold;
-	font-size: 30px;
 	border-radius: 10px;
 	box-shadow: 2px 2px 2px #6B3C3C;
 	display: none;
+	z-index: 100;
+}
+.title {
+	color: rgb(27, 44, 238);
+	font-weight: bold;
+	font-size: 30px;
+}
+.subtitle {
+	color: #091163;
+	font-style: italic;
+}
+
+.button {
+	border-radius: 6px;
+	padding: 6px;
+	box-shadow: rgb(0, 0, 0) 1px 1px 1px;
+}
+.button:hover{
+	box-shadow: rgb(73, 50, 50) 3px 3px 3px;
+	cursor: pointer;
+}
+
+#closeExportWindow{
+	margin-top:10px;
+	margin-bottom:3px;
 }
