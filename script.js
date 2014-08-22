@@ -215,3 +215,4 @@ function getCourseTime(data, startOrEnd) {
 
 function getCourseLocation(data) {
     return data[7];
+}
