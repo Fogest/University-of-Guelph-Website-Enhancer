@@ -1,13 +1,12 @@
 {
   "manifest_version": 2,
 
-  "name": "Extension Name",
+  "name": "University of Guelph Course Exporter",
   "version": "0.0.1",
-  "description": "Extension Description",
+  "description": "This extension will allow you to export your web advisor schedule to an .ics (ical) file.",
 
   "permissions": [
-    "https://webadvisor.uoguelph.ca/",
-    "storage"
+    "https://webadvisor.uoguelph.ca/"
   ],
 
   "icons": { "16": "icon16.png",

@@ -55,7 +55,7 @@ function createAllEvents(data) {
 function createIndividualIcalEvent(data) {
     var eventIcal = 'BEGIN:VEVENT\n';
     eventIcal += 'DTSTART:' + correctStartTime(data) + '\n';
-    //eventIcal += 'DTEND:' + toICSFormat(getCourseStart(data), getCourseTime(data, 'end')) + '\n';
+    //eventIcal += 'DTEND:' + correctEndTime(data) + '\n';
     eventIcal += 'RRULE:FREQ=WEEKLY;UNTIL=20141129T000000;WKST=SU;BYDAY=' + convertArrayOfDatesToICSFormat(getArrayOfDates(getCourseDates(data))) + '\n';
     eventIcal += 'SUMMARY:' + getCourseCode(data) + '(' + getCourseType(data) + ')' + '\n';
     eventIcal += 'LOCATION:' + getCourseLocation(data) + ', University of Guelph\n';
@@ -87,8 +87,44 @@ function correctStartTime(data) {
     var pre = date.getFullYear().toString() + ((date.getMonth() + 1) < 10 ? "0" + (date.getMonth() + 1).toString() : (date.getMonth() + 1).toString()); 
     pre += ((date.getDate() + 1) < 10 ? "0" + date.getDate().toString() : date.getDate().toString());
 
-var post = originalDate.getHours() < 10 ? ("0" + originalDate.getHours().toString()) : (originalDate.getHours().toString());
-post += originalDate.getMinutes() < 10 ? ("0" + originalDate.getMinutes().toString()) : (originalDate.getMinutes().toString() + "00");
+	var post = originalDate.getHours() < 10 ? ("0" + originalDate.getHours().toString()) : (originalDate.getHours().toString());
+	if(originalDate.getMinutes() == 0)
+		post += "0000";
+	else {
+		post += originalDate.getMinutes() < 10 ? ("0" + originalDate.getMinutes().toString()) : (originalDate.getMinutes().toString() + "00");	
+	}
+    return pre + "T" + post;
+}
+
+function correctEndTime(data) {
+    var re = /\B(AM|PM)/gm;
+    var subst = ' $1';
+
+    var fullDate = getCourseEnd(data) + ' ' + getCourseTime(data, 'end');
+    var originalDate = new Date(fullDate.replace(re, subst));
+    var date = new Date(getCourseEnd(data));
+    var sameDay = false;
+    var dates = getArrayOfDates(getCourseDates(data));
+    for (var i = 0; i < dates.length; ++i) {
+        if (getDateVal(dates[i]) == date.getDay()) {
+            sameDay = true;
+            break;
+        }
+    }
+    if (sameDay == false) {
+        while (getDateVal(dates[0]) != date.getDay()) {
+            date.setDate(date.getDate() + 1);
+        }
+    }
+    var pre = date.getFullYear().toString() + ((date.getMonth() + 1) < 10 ? "0" + (date.getMonth() + 1).toString() : (date.getMonth() + 1).toString()); 
+    pre += ((date.getDate() + 1) < 10 ? "0" + date.getDate().toString() : date.getDate().toString());
+
+	var post = originalDate.getHours() < 10 ? ("0" + originalDate.getHours().toString()) : (originalDate.getHours().toString());
+	if(originalDate.getMinutes() == 0)
+		post += "0000";
+	else {
+		post += originalDate.getMinutes() < 10 ? ("0" + originalDate.getMinutes().toString()) : (originalDate.getMinutes().toString() + "00");	
+	}
     return pre + "T" + post;
 }
 
