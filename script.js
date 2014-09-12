@@ -55,11 +55,11 @@ function createAllEvents(data) {
 function createIndividualIcalEvent(data) {
     var eventIcal = 'BEGIN:VEVENT\n';
     eventIcal += 'DTSTART:' + correctStartTime(data) + '\n';
-    //eventIcal += 'DTEND:' + correctEndTime(data) + '\n';
+    eventIcal += 'DTEND:' + correctEndTime(data) + '\n';
     eventIcal += 'RRULE:FREQ=WEEKLY;UNTIL=20141129T000000;WKST=SU;BYDAY=' + convertArrayOfDatesToICSFormat(getArrayOfDates(getCourseDates(data))) + '\n';
     eventIcal += 'SUMMARY:' + getCourseCode(data) + '(' + getCourseType(data) + ')' + '\n';
     eventIcal += 'LOCATION:' + getCourseLocation(data) + ', University of Guelph\n';
-    eventIcal += 'DESCRIPTION:' + getCourseCode(data) + ' this is a much longer description....\n';
+    eventIcal += 'DESCRIPTION:' + getCourseCode(data) + '\n';
     eventIcal += 'END:VEVENT\n';
     return eventIcal;
 }
@@ -100,9 +100,9 @@ function correctEndTime(data) {
     var re = /\B(AM|PM)/gm;
     var subst = ' $1';
 
-    var fullDate = getCourseEnd(data) + ' ' + getCourseTime(data, 'end');
+    var fullDate = getCourseStart(data) + ' ' + getCourseTime(data, 'end');
     var originalDate = new Date(fullDate.replace(re, subst));
-    var date = new Date(getCourseEnd(data));
+    var date = new Date(getCourseStart(data));
     var sameDay = false;
     var dates = getArrayOfDates(getCourseDates(data));
     for (var i = 0; i < dates.length; ++i) {
