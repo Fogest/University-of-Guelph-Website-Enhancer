@@ -2,9 +2,9 @@
   "manifest_version": 2,
 
   "name": "University of Guelph Website Enhancer",
-  "shortname": "UoG Enhancer
+  "shortname": "UoG Enhancer",
   "version": "1.1.0",
-  "description": "An extension to improve the University of Guelph webpages. This includes a course schedule exporter as well as enhancements to the design.",
+  "description": "An extension to improve the University of Guelph webpages as we all know they could use some work.",
 
   "permissions": [
     "https://webadvisor.uoguelph.ca/"
