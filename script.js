@@ -1,5 +1,7 @@
 var pageTitle = $(document).find("title").text();
 var regex = /^Schedule/;
+var abrv = '{"AC":"Athletic Centre","ANCC":"OVC Animal Cancer Centre","ANNU":"Animal Science","BWH":"Blackwood Hall","CAF":"Central Animal Facility","CRB":"OVC Clinical Research","CRSC":"Crop Science","DH":"Day Hall","EBA":"Environmental Biology Annex 1","ECBA":"Edmund C. Bovey Building","FS":"Food Science","GRHM":"Graham Hall","HUTT":"H.L. Hutt Building","JHNH":"Johnston Hall","JTP":"John T. Powell Building","LA":"Landscape Architecture","LABL":"lab Animal Building","MAC":"Macdonald Hall","MACN":"MacNaughton","MACS":"Macdonald Stewart Hall","MASS":"Massey Hall","MCKN":"MacKinnon","MCLN":"J.D. Maclachlan","MINS":"Macdonald Institute","MLIB":"Mclaughlin Library","MSAC":"Macdonald Stewart Art Centre","OVCM":"Ontario Veterinary College","REYN":"Reynolds Building","RICH":"Richards Building","ROZH":"Rozanski Hall","SSC":"Science Complex","THRN":"A.A. Thornbrough Building","VSER":"Vehicle Services","WMEM":"War Memorial Hall","ZAV":"Zavitz Hall","ZOOB":"Zoology Annex 2"} '
+abrv = jQuery.parseJSON(abrv);
 
 if (regex.test(pageTitle)) {
     var content = '<input type="button" id="export" name="export" value="Export Schedule" class="shortButton" accesskey="E">' +
@@ -31,6 +33,9 @@ function error() {
     alert("The data has not yet been retrieved. Please hit the button again in a few seconds!");
 }
 
+function getFullBuildingName(shortForm) {
+	return abrv[shortForm];
+}
 
 function createDownload() {
     var ical = [createAllEvents(getFormattedDataArray())];
@@ -250,5 +255,8 @@ function getCourseTime(data, startOrEnd) {
 }
 
 function getCourseLocation(data) {
-    return data[7];
+	var location = data[7].split(",")[0];
+	var room = data[7].split(",")[1];
+	
+    return getFullBuildingName(location) + "(" + location + ")" + ", " + room;
 }
