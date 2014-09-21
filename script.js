@@ -257,6 +257,6 @@ function getCourseTime(data, startOrEnd) {
 function getCourseLocation(data) {
 	var location = data[7].split(",")[0];
 	var room = data[7].split(",")[1];
-	
-    return getFullBuildingName(location) + "(" + location + ")" + ", " + room;
+	console.log(getFullBuildingName(location) + " (" + location + ")" + "," + room);
+    return getFullBuildingName(location) + " (" + location + ")" + "," + room;
 }
