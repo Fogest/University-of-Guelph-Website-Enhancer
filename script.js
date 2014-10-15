@@ -61,7 +61,7 @@ function createIndividualIcalEvent(data) {
     var eventIcal = 'BEGIN:VEVENT\n';
     eventIcal += 'DTSTART:' + correctStartTime(data) + '\n';
     eventIcal += 'DTEND:' + correctEndTime(data) + '\n';
-    eventIcal += 'RRULE:FREQ=WEEKLY;UNTIL=20141129T000000;WKST=SU;BYDAY=' + convertArrayOfDatesToICSFormat(getArrayOfDates(getCourseDates(data))) + '\n';
+    eventIcal += 'RRULE:FREQ=WEEKLY;UNTIL=20140403T000000;WKST=SU;BYDAY=' + convertArrayOfDatesToICSFormat(getArrayOfDates(getCourseDates(data))) + '\n';
     eventIcal += 'SUMMARY:' + getCourseCode(data) + '(' + getCourseType(data) + ')' + '\n';
     eventIcal += 'LOCATION:' + getCourseLocation(data) + ', University of Guelph\n';
     eventIcal += 'DESCRIPTION:' + getCourseCode(data) + '\n';

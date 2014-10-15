@@ -35,10 +35,14 @@
 	margin-top:10px;
 	margin-bottom:3px;
 }
-
+/*Class Schedule CSS*/
 h1 {
 	font-family: 'Archivo Black', sans-serif;
 	font-weight: 800;
+}
+div#header h1,div#content h1 {
+	font-family: 'Arial, Helvetica', sans-serif;
+	font-weight: 600;
 }
 #schedulegrid th {
 	background-color: rgb(219, 80, 80);
@@ -54,4 +58,26 @@ h1 {
 #schedulegrid .slot {
 	background-color: rgb(152, 152, 152);
 	font-family: 'Archivo Black', sans-serif;
+}
+.container {
+	width: 80% !important;
+}
+#askgryph {
+	width: 80% !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
+#misc, #misc .container {
+	background: #45403a !important;
+}
+div.vertical table.layout, div.vertical table.layout tbody table{
+	width: 100%;
+}
+
+/*Student Menu CSS*/
+#content {
+	width: 75% !important;
+}
+#sidebar {
+	width:25% !important;
 }
