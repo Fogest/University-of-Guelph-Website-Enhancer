@@ -51,7 +51,8 @@ function createAllEvents(data) {
     results += 'VERSION:2.0\n';
     results += 'PRODID:-//Justin Visser/jhvisser.com//iCal Export v1.0//EN\n';
     for (var i = 0; i < data.length; ++i) {
-        if (getCourseType(data[i]) != 'EXAM') results += createIndividualIcalEvent(data[i]);
+        if ((getCourseCode(data[i]).indexOf("DE") === -1) && getCourseType(data[i]) != 'EXAM') 
+            results += createIndividualIcalEvent(data[i]);
     }
     results += 'END:VCALENDAR';
     return results;
@@ -61,7 +62,7 @@ function createIndividualIcalEvent(data) {
     var eventIcal = 'BEGIN:VEVENT\n';
     eventIcal += 'DTSTART:' + correctStartTime(data) + '\n';
     eventIcal += 'DTEND:' + correctEndTime(data) + '\n';
-    eventIcal += 'RRULE:FREQ=WEEKLY;UNTIL=20140403T000000;WKST=SU;BYDAY=' + convertArrayOfDatesToICSFormat(getArrayOfDates(getCourseDates(data))) + '\n';
+    eventIcal += 'RRULE:FREQ=WEEKLY;UNTIL=20150403T000000;WKST=SU;BYDAY=' + convertArrayOfDatesToICSFormat(getArrayOfDates(getCourseDates(data))) + '\n';
     eventIcal += 'SUMMARY:' + getCourseCode(data) + '(' + getCourseType(data) + ')' + '\n';
     eventIcal += 'LOCATION:' + getCourseLocation(data) + ', University of Guelph\n';
     eventIcal += 'DESCRIPTION:' + getCourseCode(data) + '\n';
@@ -257,6 +258,5 @@ function getCourseTime(data, startOrEnd) {
 function getCourseLocation(data) {
 	var location = data[7].split(",")[0];
 	var room = data[7].split(",")[1];
-	console.log(getFullBuildingName(location) + " (" + location + ")" + "," + room);
     return getFullBuildingName(location) + " (" + location + ")" + "," + room;
 }
