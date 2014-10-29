@@ -20,8 +20,8 @@
   "content_scripts": [
     {
 		"run_at": "document_end",
-        "matches": ["https://webadvisor.uoguelph.ca/*"],
-        "js": ["main.js","lib.js"],
+    "matches": ["https://webadvisor.uoguelph.ca/*"],
+    "js": ["main.js"],
 		"css": ["style.css"],
         "all_frames": true
     }
