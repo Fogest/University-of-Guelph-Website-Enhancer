@@ -15,13 +15,13 @@
           "128": "icon128.png" },
 
 
-  "web_accessible_resources": ["script.js"],
+  "web_accessible_resources": ["script.js","resources/terms.json"],
 
   "content_scripts": [
     {
 		"run_at": "document_end",
     "matches": ["https://webadvisor.uoguelph.ca/*"],
-    "js": ["main.js"],
+    "js": ["resources/jquery-2.1.1.min.js","main.js"],
 		"css": ["style.css"],
         "all_frames": true
     }

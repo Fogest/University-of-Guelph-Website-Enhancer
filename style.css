@@ -1,83 +1,114 @@
 @import url(http://fonts.googleapis.com/css?family=Archivo+Black);
-#exportPopup {
-	background: rgb(150, 150, 150);
-	border: 2px solid black;
-	position: fixed;
-	top: 35%;
-	left: 35%;
-	width: 30%;
-	border-radius: 10px;
-	box-shadow: 2px 2px 2px #6B3C3C;
-	display: none;
-	z-index: 100;
+#exportPopup
+{
+    position: fixed;
+    z-index: 100;
+    top: 35%;
+    left: 35%;
+
+    display: none;
+
+    width: 30%;
+
+    border: 2px solid black;
+    border-radius: 10px;
+    background: rgb(150, 150, 150);
+    box-shadow: 2px 2px 2px #6b3c3c;
 }
-.title {
-	color: rgb(27, 44, 238);
-	font-weight: bold;
-	font-size: 30px;
+.title
+{
+    font-size: 30px;
+    font-weight: bold;
+
+    color: rgb(27, 44, 238);
 }
-.subtitle {
-	color: #091163;
-	font-style: italic;
+.subtitle
+{
+    font-style: italic;
+
+    color: #091163;
 }
 
-.button {
-	border-radius: 6px;
-	padding: 6px;
-	box-shadow: rgb(0, 0, 0) 1px 1px 1px;
+.button
+{
+    padding: 6px;
+
+    border-radius: 6px;
+    box-shadow: rgb(0, 0, 0) 1px 1px 1px;
 }
-.button:hover{
-	box-shadow: rgb(73, 50, 50) 3px 3px 3px;
-	cursor: pointer;
+.button:hover
+{
+    cursor: pointer;
+
+    box-shadow: rgb(73, 50, 50) 3px 3px 3px;
 }
 
-#closeExportWindow{
-	margin-top:10px;
-	margin-bottom:3px;
+#closeExportWindow
+{
+    margin-top: 10px;
+    margin-bottom: 3px;
 }
 /*Class Schedule CSS*/
-h1 {
-	font-family: 'Archivo Black', sans-serif;
-	font-weight: 800;
+h1
+{
+    font-family: 'Archivo Black', sans-serif;
+    font-weight: 800;
 }
-div#header h1,div#content h1 {
-	font-family: 'Arial, Helvetica', sans-serif;
-	font-weight: 600;
+div#header h1,
+div#content h1
+{
+    font-family: 'Arial, Helvetica', sans-serif;
+    font-weight: 600;
 }
-#schedulegrid th {
-	background-color: rgb(219, 80, 80);
-	font-family: 'Archivo Black', sans-serif;
+#schedulegrid th
+{
+    font-family: 'Archivo Black', sans-serif;
+
+    background-color: rgb(219, 80, 80);
 }
-#schedulegrid td {
-	background-color: rgb(232, 232, 232);
-	font-family: 'Archivo Black', sans-serif;
+#schedulegrid td
+{
+    font-family: 'Archivo Black', sans-serif;
+
+    background-color: rgb(232, 232, 232);
 }
-#schedulegrid .time {
-	background-color: rgba(255, 251, 0, 0.39);
+#schedulegrid .time
+{
+    background-color: rgba(255, 251, 0, .39);
 }
-#schedulegrid .slot {
-	background-color: rgb(152, 152, 152);
-	font-family: 'Archivo Black', sans-serif;
+#schedulegrid .slot
+{
+    font-family: 'Archivo Black', sans-serif;
+
+    background-color: rgb(152, 152, 152);
 }
-.container {
-	width: 80% !important;
+.container
+{
+    width: 80% !important;
 }
-#askgryph {
-	width: 80% !important;
-	padding-left: 0 !important;
-	padding-right: 0 !important;
+#askgryph
+{
+    width: 80% !important;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
 }
-#misc, #misc .container {
-	background: #45403a !important;
+#misc,
+#misc .container
+{
+    background: #45403a !important;
 }
-div.vertical table.layout, div.vertical table.layout tbody table{
-	width: 100%;
+div.vertical table.layout,
+div.vertical table.layout tbody table
+{
+    width: 100%;
 }
 
 /*Student Menu CSS*/
-#content {
-	width: 75% !important;
+#content
+{
+    width: 75% !important;
 }
-#sidebar {
-	width:25% !important;
+#sidebar
+{
+    width: 25% !important;
 }

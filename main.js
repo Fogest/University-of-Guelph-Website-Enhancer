@@ -5,4 +5,15 @@ function injectScript(file, node) {
     s.setAttribute('src', file);
     th.appendChild(s);
 }
+
+function readInFile() {
+	var data = '';
+	$.getJSON(chrome.extension.getURL('resources/terms.json'), function( data ) {
+		
+	    return data;
+	});
+}
+console.log(readInFile());
 injectScript( chrome.extension.getURL('script.js'), 'body');
+
+
