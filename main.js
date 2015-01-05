@@ -13,7 +13,23 @@ function readInFile() {
 	    return data;
 	});
 }
-console.log(readInFile());
+//console.log(readInFile());
 injectScript( chrome.extension.getURL('script.js'), 'body');
 
+/*
+$.getJSON("https://gist.githubusercontent.com/Fogest/29fca2c77a09d272ed7c/raw/7a34efdaabc8ca0a8078d2f83e2d0cab3de20276/terms.json",function(data) {
+	data = jQuery.parseJSON(data);
+	console.log(data);
 
+	chrome.storage.local.set({'terms': data}, function() {
+          // Notify that we saved.
+          console.log('Settings saved');
+
+        chrome.storage.local.get('terms', function (result) {
+            console.log(result.terms);
+        });
+
+        });
+});
+
+*/

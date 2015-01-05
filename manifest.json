@@ -3,7 +3,7 @@
 
   "name": "University of Guelph Website Enhancer",
   "short_name": "UoG Enhancer",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "An extension to improve the University of Guelph webpages as we all know they could use some work.",
 
   "permissions": [
