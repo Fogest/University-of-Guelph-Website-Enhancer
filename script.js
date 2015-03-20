@@ -1,9 +1,17 @@
 var pageTitle = $(document).find("title").text();
+var term = "F15";
 var regex = /^Schedule/;
 var abrv = '{"AC":"Athletic Centre","ANCC":"OVC Animal Cancer Centre","ANNU":"Animal Science","BWH":"Blackwood Hall","CAF":"Central Animal Facility","CRB":"OVC Clinical Research","CRSC":"Crop Science","DH":"Day Hall","EBA":"Environmental Biology Annex 1","ECBA":"Edmund C. Bovey Building","FS":"Food Science","GRHM":"Graham Hall","HUTT":"H.L. Hutt Building","JHNH":"Johnston Hall","JTP":"John T. Powell Building","LA":"Landscape Architecture","LABL":"lab Animal Building","MAC":"Macdonald Hall","MACN":"MacNaughton","MACS":"Macdonald Stewart Hall","MASS":"Massey Hall","MCKN":"MacKinnon","MCLN":"J.D. Maclachlan","MINS":"Macdonald Institute","MLIB":"Mclaughlin Library","MSAC":"Macdonald Stewart Art Centre","OVCM":"Ontario Veterinary College","REYN":"Reynolds Building","RICH":"Richards Building","ROZH":"Rozanski Hall","SSC":"Science Complex","THRN":"A.A. Thornbrough Building","VSER":"Vehicle Services","WMEM":"War Memorial Hall","ZAV":"Zavitz Hall","ZOOB":"Zoology Annex 2"} '
 abrv = jQuery.parseJSON(abrv);
-
 if (regex.test(pageTitle)) {
+	termStorage = localStorage.getItem("term");
+	if(typeof termStorage !== 'undefined')
+		term = termStorage;
+
+	$.get("https://jhvisser.com/guelph/extension/terms.json",function(data) {
+		term = data[term];
+	});
+
     var content = '<input type="button" id="export" name="export" value="Export Schedule" class="shortButton" accesskey="E">' +
         '<div id="exportPopup"><span class="title">Download iCal file</span></br>' +
         '<span class="subtitle">(You can export this to most calendar applications)</span></br>' +
@@ -21,12 +29,23 @@ if (regex.test(pageTitle)) {
     });
 
     $("#icalDownload").click(function () {
-        createDownload();
+        createDownload(term.termEnd);
     });
 
     $("#closeExportWindow").click(function () {
         $("#exportPopup").fadeOut("slow");
     });
+}
+
+regex = /^Class Schedule/;
+if (regex.test(pageTitle)) {
+	$("input[name='SUBMIT2']").click(function () {
+		term = $("#VAR4 option:selected").text();
+		term = term.split(" ");
+		term = term[0];
+
+		localStorage.setItem("term", term);
+	});
 }
 
 function error() {
@@ -37,8 +56,8 @@ function getFullBuildingName(shortForm) {
 	return abrv[shortForm];
 }
 
-function createDownload() {
-    var ical = [createAllEvents(getFormattedDataArray())];
+function createDownload(endDate) {
+    var ical = [createAllEvents(getFormattedDataArray(), endDate)];
     var download = new Blob(ical, {
         type: 'text/calendar'
     });
@@ -46,23 +65,23 @@ function createDownload() {
     window.location.replace(url);
 }
 
-function createAllEvents(data) {
+function createAllEvents(data, endDate) {
     var results = 'BEGIN:VCALENDAR\n';
     results += 'VERSION:2.0\n';
     results += 'PRODID:-//Justin Visser/jhvisser.com//iCal Export v1.0//EN\n';
     for (var i = 0; i < data.length; ++i) {
         if ((getCourseCode(data[i]).indexOf("DE") === -1) && getCourseType(data[i]) != 'EXAM') 
-            results += createIndividualIcalEvent(data[i]);
+            results += createIndividualIcalEvent(data[i], endDate);
     }
     results += 'END:VCALENDAR';
     return results;
 }
 
-function createIndividualIcalEvent(data) {
+function createIndividualIcalEvent(data, endDate) {
     var eventIcal = 'BEGIN:VEVENT\n';
     eventIcal += 'DTSTART:' + correctStartTime(data) + '\n';
     eventIcal += 'DTEND:' + correctEndTime(data) + '\n';
-    eventIcal += 'RRULE:FREQ=WEEKLY;UNTIL=20150403T000000;WKST=SU;BYDAY=' + convertArrayOfDatesToICSFormat(getArrayOfDates(getCourseDates(data))) + '\n';
+    eventIcal += 'RRULE:FREQ=WEEKLY;UNTIL='+ endDate +';WKST=SU;BYDAY=' + convertArrayOfDatesToICSFormat(getArrayOfDates(getCourseDates(data))) + '\n';
     eventIcal += 'SUMMARY:' + getCourseCode(data) + '(' + getCourseType(data) + ')' + '\n';
     eventIcal += 'LOCATION:' + getCourseLocation(data) + ', University of Guelph\n';
     eventIcal += 'DESCRIPTION:' + getCourseCode(data) + '\n';
